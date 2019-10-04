@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-<h1>Python Package Index</h1>
+{%  extends "shared/_layout.html" %}
+{% block main_content %}
 
-<h2>Packages</h2>
-{% for package in packages %}
+    <h1>Python Package Index</h1>
+
+    <h2>Packages</h2>
+    {% for package in packages %}
+
     <div>
-        <span>{{ package.name }}</span>
-        <span>{{ package.version }}</span>
+        <span class="title">{{package.name.upper()}}</span>
+        <span class="version">{{package.version}}</span>
     </div>
-{% endfor %}
-</body>
-</html>
+
+    {% endfor %}
+{% endblock %}
