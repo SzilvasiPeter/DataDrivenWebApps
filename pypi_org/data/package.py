@@ -1,7 +1,9 @@
 import sqlalchemy as sa
 
+from data.modelbase import SqlAlchemyBase
 
-class Package:
+
+class Package(SqlAlchemyBase):
     __tablename__ = 'packages'
 
     id = sa.Column(sa.String, primary_key=True, )
