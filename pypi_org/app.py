@@ -13,6 +13,7 @@ def setup_db():
          'pypi.sqlite')
 
     db_session.global_init(db_file)
+    #Comment
 
 
 def main():
