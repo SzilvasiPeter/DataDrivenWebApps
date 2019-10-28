@@ -2,6 +2,8 @@ import sqlalchemy as sa
 
 from data.modelbase import SqlAlchemyBase
 
+# Create the db_session here!!
+
 
 class Package(SqlAlchemyBase):
     __tablename__ = 'packages'
