@@ -31,6 +31,5 @@ def register_blueprint():
     app.register_blueprint(cms_views.blueprint)
 
 
-
 if __name__ == '__main__':
     main()

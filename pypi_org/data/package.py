@@ -1,8 +1,6 @@
 import sqlalchemy as sa
 
-from data.modelbase import SqlAlchemyBase
-
-# Create the db_session here!!
+from pypi_org.data.modelbase import SqlAlchemyBase
 
 
 class Package(SqlAlchemyBase):
