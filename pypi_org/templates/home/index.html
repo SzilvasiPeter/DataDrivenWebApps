@@ -27,11 +27,11 @@
                     Hot off the press: the newest project releases
                 </div>
 
-                {% for package in packages %}
+                {% for r in releases %}
                     <div class="project">
                         <div class="title">
-                            <a href="#">{{ package.name }} {{ package.version }}</a>
-                            <div class="desc">THE DESC</div>
+                            <a href="#">{{ r.package.id }} {{ r.version_text }}</a>
+                            <div class="desc">{{ r.package.summary }}</div>
                         </div>
                     </div>
                 {% endfor %}
