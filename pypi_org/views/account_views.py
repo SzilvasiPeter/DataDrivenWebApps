@@ -25,6 +25,14 @@ def register_get():
 @blueprint.route('/account/register', methods=['POST'])
 @response(template_file='account/register.html')
 def register_post():
+    request = flask.request
+
+    name = request.form.get('name')
+    email = request.form.get('email', '').lower().strip()
+    password = request.form.get('password').strip()
+
+    print(name, email, password)
+
     return {}
 
 
