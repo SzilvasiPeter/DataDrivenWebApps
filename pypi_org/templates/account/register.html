@@ -2,11 +2,14 @@
 {% block title %}About PyPI Demo{% endblock %}
 
 {% block main_content %}
-    <h1>Register at PyPi</h1>
 
-    <div>
-        This is will be our form.
-    </div>
+    <form action="" method="POST">
+        <h1>Register at PyPi</h1>
+        <input type="text" placeholder=" Your name">
+        <input type="text" placeholder=" Your email address">
+        <input type="password" placeholder=" Password">
+        <button type="submit">Register</button>
+    </form>
 {% endblock %}
 
 {% block additional_css %}
