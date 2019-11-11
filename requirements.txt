@@ -2,5 +2,6 @@ progressbar
 flask
 sqlalchemy
 
+passlib
 progressbar2
 python-dateutil
