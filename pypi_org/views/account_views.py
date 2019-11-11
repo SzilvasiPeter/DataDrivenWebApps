@@ -49,7 +49,8 @@ def register_post():
             'name': name,
             'email': email,
             'password': password,
-            'error': "Some required fields are missing."
+            'error': "Some required fields are missing.",
+            'user_id': cookie_auth.get_user_id_via_auth_cookie(flask.request),
         }
 
     user = user_service.create_user(name, email, password)
@@ -58,7 +59,8 @@ def register_post():
             'name': name,
             'email': email,
             'password': password,
-            'error': "A user with that email was already exist."
+            'error': "A user with that email was already exist.",
+            'user_id': cookie_auth.get_user_id_via_auth_cookie(flask.request),
         }
 
     resp = flask.redirect('/account')
@@ -87,7 +89,8 @@ def login_post():
         return {
             'email': email,
             'password': password,
-            'error': "Some required fields are missing."
+            'error': "Some required fields are missing.",
+            'user_id': cookie_auth.get_user_id_via_auth_cookie(flask.request),
         }
 
     user = user_service.login_user(email, password)
@@ -95,7 +98,8 @@ def login_post():
         return {
             'email': email,
             'password': password,
-            'error': "The account is not exist or the password is wrong."
+            'error': "The account is not exist or the password is wrong.",
+            'user_id': cookie_auth.get_user_id_via_auth_cookie(flask.request),
         }
 
     resp = flask.redirect('/account')
