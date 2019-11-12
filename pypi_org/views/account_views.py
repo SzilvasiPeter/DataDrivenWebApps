@@ -5,7 +5,7 @@ from pypi_org.infrastructure.view_modifiers import response
 from pypi_org.services import user_service
 import pypi_org.infrastructure.cookie_auth as cookie_auth
 from pypi_org.viewmodels.account.index_view_model import IndexViewModel
-
+from pypi_org.viewmodels.account.register_view_model import RegisterViewModel
 
 blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 
@@ -28,36 +28,23 @@ def index():
 @blueprint.route('/account/register', methods=['GET'])
 @response(template_file='account/register.html')
 def register_get():
-    return {}
+    vm = RegisterViewModel()
+    return vm.to_dict()
 
 
 @blueprint.route('/account/register', methods=['POST'])
 @response(template_file='account/register.html')
 def register_post():
-    request = flask.request
+    vm = RegisterViewModel()
 
-    name = request.form.get('name')
-    email = request.form.get('email', '').lower().strip()
-    password = request.form.get('password').strip()
+    vm.validate()
 
-    if not name or not email or not password:
-        return {
-            'name': name,
-            'email': email,
-            'password': password,
-            'error': "Some required fields are missing.",
-            'user_id': cookie_auth.get_user_id_via_auth_cookie(flask.request),
-        }
+    if vm.error:
+        return vm.to_dict()
 
-    user = user_service.create_user(name, email, password)
+    user = user_service.create_user(vm.name, vm.email, vm.password)
     if not user:
-        return {
-            'name': name,
-            'email': email,
-            'password': password,
-            'error': "A user with that email was already exist.",
-            'user_id': cookie_auth.get_user_id_via_auth_cookie(flask.request),
-        }
+        return vm.to_dict()
 
     resp = flask.redirect('/account')
     cookie_auth.set_auth(resp, user.id)
