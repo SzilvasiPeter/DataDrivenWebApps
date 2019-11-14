@@ -1,5 +1,6 @@
 from pypi_org.viewmodels.account.register_view_model import RegisterViewModel
 from tests.test_client import flask_app
+from unittest import mock
 
 
 def test_example():
@@ -18,12 +19,13 @@ def test_register_validation_when_valid():
         'password': 'abc123'
     }
 
-
     with flask_app.test_request_context(path='/account/register', data=form_data):
         vm = RegisterViewModel()
 
     # Act
-    vm.validate()
+    target = 'pypi_org.services.user_service.find_user_by_email'
+    with mock.patch(target=target, return_value=None):
+        vm.validate()
 
     # Assert
     assert vm.error is None
