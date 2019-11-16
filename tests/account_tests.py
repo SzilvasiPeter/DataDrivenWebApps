@@ -2,7 +2,7 @@ from flask import Response
 
 from pypi_org.data.users import User
 from pypi_org.viewmodels.account.register_view_model import RegisterViewModel
-from tests.test_client import flask_app
+from tests.test_client import flask_app, client
 from unittest import mock
 
 
@@ -84,3 +84,24 @@ def test_register_view_new_user():
 
     # Assert
     assert resp.location == '/account'
+
+
+def test_int_account_home_no_login(client):
+    target = 'pypi_org.services.user_service.find_user_by_id'
+    with mock.patch(target, return_value=None):
+        client_account = client
+        resp: Response = client_account.get('/account')
+
+    assert resp.status_code == 302
+    assert resp.location == 'http://localhost/account/login'
+
+
+def test_int_account_home_with_login(client):
+    target = 'pypi_org.services.user_service.find_user_by_id'
+    test_user = User(name="Peter Szilvasi", email="peti.szilvasi95@gmail.com")
+    with mock.patch(target, return_value=test_user):
+        client_account = client
+        resp: Response = client_account.get('/account')
+
+    assert resp.status_code == 200
+    assert b'Peter' in resp.data

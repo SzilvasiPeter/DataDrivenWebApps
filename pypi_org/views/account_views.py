@@ -17,7 +17,7 @@ blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 @response(template_file='account/index.html')
 def index():
     vm = IndexViewModel()
-    if vm.user is None:
+    if not vm.user:
         return flask.redirect('/account/login')
 
     return vm.to_dict()
