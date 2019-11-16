@@ -1,3 +1,5 @@
+from flask import Response
+
 from pypi_org.data.users import User
 from pypi_org.viewmodels.account.register_view_model import RegisterViewModel
 from tests.test_client import flask_app
@@ -55,3 +57,30 @@ def test_register_validation_for_existing_user():
     # Assert
     assert vm.error is not None
     assert 'already exist' in vm.error
+
+
+def test_register_view_new_user():
+    # 3 A's of testing: Arrange, Act, then Assert
+
+    # Arrange
+    from pypi_org.views.account_views import register_post
+    form_data = {
+        'name': 'Peter Szilvasi',
+        'email': 'peti.szilvasi@gmail.com',
+        'password': 'abc123'
+    }
+    target = 'pypi_org.services.user_service.find_user_by_email'
+    find_user = mock.patch(target=target, return_value=None)
+    target = 'pypi_org.services.user_service.create_user'
+    create_user = mock.patch(target=target, return_value=User())
+    request = flask_app.test_request_context(path='/account/register', data=form_data)
+
+    with find_user, create_user, request:
+        # Act
+        resp: Response = register_post()
+
+
+
+
+    # Assert
+    assert resp.location == '/account'
