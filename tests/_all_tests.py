@@ -1,3 +1,4 @@
+# Running outside of pycharm
 import sys
 import os
 
