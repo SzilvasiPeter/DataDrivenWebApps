@@ -15,6 +15,15 @@ def main():
     app.run(debug=True, port=5006)
 
 
+def configure():
+    print("Configuring Flask apps:")
+
+    register_blueprints()
+    print("Setup blueprints completed")
+    setup_db()
+    print("DB setup completed")
+    print("", flush=True)
+
 def setup_db():
     db_file = os.path.join(
         os.path.dirname(__file__),
@@ -40,3 +49,5 @@ def register_blueprints():
 
 if __name__ == '__main__':
     main()
+else:
+    configure()
