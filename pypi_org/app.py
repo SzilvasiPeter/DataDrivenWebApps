@@ -4,6 +4,7 @@ import sys
 import flask
 
 from pypi_org.nosql import mongo_setup
+from pypi_org.nosql.users import User
 
 folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, folder)
@@ -30,6 +31,13 @@ def configure():
 
 def setup_db():
     mongo_setup.global_init()
+
+    # Run only once because the email has to be unique
+    user = User()
+    user.name = 'Peter Szilvasi'
+    user.email = 'peti.szilvasi95@gmail.com'
+
+    user.save()
     # db_file = os.path.join(
     #     os.path.dirname(__file__),
     #     'db',
