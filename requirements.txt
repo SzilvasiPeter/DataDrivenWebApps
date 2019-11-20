@@ -1,6 +1,7 @@
 progressbar
 flask
 sqlalchemy
+mongoengine
 
 passlib
 progressbar2
